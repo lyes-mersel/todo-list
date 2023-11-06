@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>ToDo List</title>
+		<link rel="stylesheet" href="/css/styles.css" />
+	</head>
+
+	<body>
+		<div class="box" id="heading">
+			<% if(listName === "Today") { %>
+			<h1><%= date %></h1>
+			<% } else { %>
+			<h1><%= listName %></h1>
+			<% } %>
+		</div>
+
+		<div class="box">
+			<% itemsList.forEach(item => { %>
+			<form action="/delete" method="post">
+				<div class="item">
+					<input type="hidden" name="listName" value="<%= listName %>" />
+					<input
+						type="checkbox"
+						name="checkbox"
+						value="<%= item._id %>"
+						onChange="this.form.submit()"
+					/>
+					<p><%= item.name %></p>
+				</div>
+			</form>
+			<% }); %>
+
+			<form class="item" action="/add" method="post">
+				<input
+					type="text"
+					name="todoItem"
+					placeholder="New Item"
+					autocomplete="off"
+				/>
+				<button type="submit" name="addItemToList" value="<%= listName %>">
+					+
+				</button>
+			</form>
+		</div>
+
+		<footer>
+			<span> &copy; Lyes MERSEL </span>
+		</footer>
+	</body>
+</html>
